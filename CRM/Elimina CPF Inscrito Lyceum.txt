@@ -1,0 +1,50 @@
+
+--exclui acesso portal
+--select *
+
+delete
+from   dbo.LY_PROSPECTO_CAPTACAO
+where  pessoa in    (
+                                  select PESSOA 
+                                  from   LY_PESSOA
+                                  where  CPF = @cpf
+                                  )
+
+
+
+--exclui opção de curso
+--select *
+delete LY_OPCOES_PROC_SELETIVO
+from   LY_OPCOES_PROC_SELETIVO a
+where  CANDIDATO in (
+                                               select candidato
+                                               from   LY_CANDIDATO b
+                                               where  CPF = @cpf
+                                               and   a.CONCURSO = b.concurso
+                                        )
+
+delete  LY_BOLETOS_CANCELADOS
+from	LY_BOLETOS_CANCELADOS ab 
+join LY_CANDIDATO ac on ab.CANDIDATO = ac.CANDIDATO and ab.CONCURSO = ac.CONCURSO
+ where  CPF = @cpf
+
+
+--exclui candidato
+--select *
+delete
+from   LY_CANDIDATO
+where  CPF = @cpf
+
+delete LY_EMAIL_LOTE_DEST
+from LY_EMAIL_LOTE_DEST a
+where pessoa in ( 
+					select pessoa
+					from   LY_PESSOA
+					where  CPF = @cpf
+				)
+
+--exclui pessoa
+--select * 
+delete 
+from   LY_PESSOA
+where  CPF = @cpf

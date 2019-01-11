@@ -37,7 +37,7 @@ select	CANDIDATO
 		,GETDATE()DATA
 		,TURNO 
 from	[POLARIS02\BDIESBPROD].LYCEUM.DBO.VW_PAINEL_TURMAS_TODOSPERIODOS a --VW_PAINEL_TURMAS a
-left join	ly_curso b on a.curso = b.curso
+left join	[POLARIS02\BDIESBPROD].LYCEUM.DBO.ly_curso b on a.curso = b.curso
 where	CONVOCADO = '1'
 
 
